@@ -1,0 +1,36 @@
+@use "../util/functions.scss" as *;
+
+.dark {
+  background-color: var(--darkblue);
+  color: var(--text-white);
+
+  &__toggle__background {
+    background-color: var(--toggle-darkblue);
+  }
+  &__toggle__button {
+    background-color: var(--key-red);
+  }
+  &__display {
+    background-color: var(--screen-darkblue);
+    color: var(--text-white);
+  }
+  &__grid__container {
+    background-color: var(--toggle-darkblue);
+  }
+
+  &__button {
+    background-color: var(--grayish-orange);
+    box-shadow: 0 rem(4) 0 var(--grayish-orange-shadow);
+    color: var(--dark-grayish-blue);
+  }
+  &__diff {
+    background-color: var(--key-darkblue);
+    box-shadow: 0 rem(4) 0 var(--key-shadow-darkblue);
+    color: var(--text-white);
+  }
+  &__equal {
+    background-color: var(--key-red);
+    box-shadow: 0 rem(4) 0 var(--key-darkred);
+    color: var(--text-white);
+  }
+}

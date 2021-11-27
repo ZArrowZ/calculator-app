@@ -1,0 +1,114 @@
+@use "../util/functions.scss" as *;
+@use "../util/breackpoints.scss" as *;
+
+.calc__container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  @include breakpoints(medium) {
+    justify-content: center;
+  }
+}
+
+.display {
+  width: rem(327);
+  max-width: rem(327);
+  overflow: hidden;
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  height: rem(88);
+  background-color: var(--screen-darkblue);
+  margin: auto;
+  border-radius: rem(10);
+  margin-bottom: rem(24);
+  color: var(--text-white);
+  font-size: rem(32);
+  padding: rem(20);
+  text-align: right;
+
+  @include breakpoints(medium) {
+    width: rem(540);
+    max-width: rem(540);
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: var(--very-light-gray);
+    color: var(--very-dark-grayish-yellow);
+  }
+}
+
+.grid__container {
+  width: rem(327);
+  height: rem(420);
+  padding: rem(24);
+  background-color: var(--toggle-darkblue);
+  margin: auto;
+  border-radius: rem(10);
+  display: grid;
+  grid-template-columns: repeat(4, rem(60));
+  gap: rem(13);
+  font-size: rem(32);
+
+  @include breakpoints(medium) {
+    width: rem(540);
+    height: rem(480);
+    gap: rem(25);
+    padding: rem(32);
+    grid-template-columns: repeat(4, rem(101));
+  }
+
+  @media (prefers-color-scheme: light) {
+    background-color: var(--grayish-red);
+  }
+}
+button {
+  border: none;
+  border-radius: rem(6);
+  background-color: var(--grayish-orange);
+  color: var(--dark-grayish-blue);
+  position: relative;
+  cursor: pointer;
+  height: rem(60);
+  z-index: 100;
+  box-shadow: 0 rem(4) 0 var(--grayish-orange-shadow);
+
+  @media (prefers-color-scheme: light) {
+    background-color: var(--light-grayish-yellow);
+    box-shadow: 0 rem(4) 0 var(--dark-grayish-orange);
+    color: var(--very-dark-grayish-yellow);
+  }
+}
+button:active {
+  box-shadow: 0 0 0;
+  transform: translateY(rem(4));
+}
+
+.diff-color {
+  background-color: var(--key-darkblue);
+  font-size: rem(18);
+  color: var(--text-white);
+  box-shadow: 0 rem(4) 0 var(--key-shadow-darkblue);
+
+  @media (prefers-color-scheme: light) {
+    background-color: var(--darkcyan);
+    box-shadow: 0 rem(4) 0 var(--very-darkcyan);
+    color: var(--text-white);
+  }
+}
+.first-two-places {
+  grid-column: 1/3;
+}
+.second-two-places {
+  grid-column: 3/5;
+  background-color: var(--key-red);
+  color: var(--text-white);
+  font-size: rem(18);
+  box-shadow: 0 rem(4) 0 var(--key-darkred);
+
+  @media (prefers-color-scheme: light) {
+    background-color: var(--orange);
+    box-shadow: 0 rem(4) 0 var(--darkorange);
+    color: var(--text-white);
+  }
+}

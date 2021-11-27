@@ -1,0 +1,36 @@
+@use "../util/functions.scss" as *;
+
+.violet {
+  background-color: var(--very-darkviolet);
+  color: var(--lightyellow);
+
+  &__toggle__background {
+    background-color: var(--toggle-very-darkviolet);
+  }
+  &__toggle__button {
+    background-color: var(--pure-cyan);
+  }
+  &__display {
+    background-color: var(--toggle-very-darkviolet);
+    color: var(--lightyellow);
+  }
+  &__grid__container {
+    background-color: var(--toggle-very-darkviolet);
+  }
+
+  &__button {
+    background-color: var(--very-darkviolet-button);
+    box-shadow: 0 rem(4) 0 var(--dark-magenta-shadow);
+    color: var(--lightyellow);
+  }
+  &__diff {
+    background-color: var(--darkviolet);
+    box-shadow: 0 rem(4) 0 var(--vivid-magenta-shadow);
+    color: var(--text-white);
+  }
+  &__equal {
+    background-color: var(--pure-cyan);
+    box-shadow: 0 rem(4) 0 var(--soft-cyan);
+    color: var(--very-darkblue);
+  }
+}
