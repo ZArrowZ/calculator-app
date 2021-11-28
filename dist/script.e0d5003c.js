@@ -254,12 +254,17 @@ violetTheme.addEventListener("click", function () {
   removeLightTheme(); // remove all dark theme classes
 
   removeDarkTheme();
-}); // calculator
+}); // ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------
 
 var numberButtons = document.querySelectorAll(".number");
 var operationButtons = document.querySelectorAll(".operation");
 var deleteButton = document.querySelector(".delete");
-var clearButton = document.querySelector(".clear"); // clear all result from display screen
+var clearButton = document.querySelector(".clear"); // function to but comma after three digits
+
+function addCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+} // clear all result from display screen
+
 
 clearButton.addEventListener("click", function () {
   displayScreen.textContent = "";
@@ -268,9 +273,14 @@ clearButton.addEventListener("click", function () {
 numberButtons.forEach(function (button) {
   button.addEventListener("click", function (e) {
     var value = e.target.textContent;
-    if (displayScreen.textContent.slice(-1) === "." && value === "." || displayScreen.textContent.slice(0) === "0" && value === "0") return; // if the first number equal 0 replace it with next number
+    if (displayScreen.textContent.slice(-1) === "." && value === "." || displayScreen.textContent.slice(0) === "0" && value === "0") return; // if the first number = . add 0 before it
 
-    if (displayScreen.textContent.slice(0) === "0") {
+    if (displayScreen.textContent === "" && value === "." || displayScreen.textContent.slice(-1) === "-" && value === "." || displayScreen.textContent.slice(-1) === "+" && value === "." || displayScreen.textContent.slice(-1) === "/" && value === "." || displayScreen.textContent.slice(-1) === "x" && value === ".") {
+      displayScreen.textContent += 0;
+    } // if the first number equal 0 replace it with next number
+
+
+    if (displayScreen.textContent.slice(0) === "0" && value != ".") {
       displayScreen.textContent = "";
     }
 
@@ -293,9 +303,11 @@ operationButtons.forEach(function (button) {
 
     if (displayScreen.textContent.includes("-") || displayScreen.textContent.includes("+") || displayScreen.textContent.includes("/") || displayScreen.textContent.includes("x")) {
       var converted = displayScreen.textContent.replaceAll("x", "*");
-      var result = eval(converted);
+      var replaceComma = converted.replaceAll(",", "");
+      var result = eval(replaceComma);
       displayScreen.textContent = "";
-      displayScreen.textContent += result;
+      var convertToEnNum = addCommas(result);
+      displayScreen.textContent += convertToEnNum;
     }
 
     displayScreen.textContent += value;
@@ -306,27 +318,15 @@ deleteButton.addEventListener("click", function () {
   var displayScreenContent = displayScreen.textContent;
   var newContent = displayScreenContent.substring(0, displayScreenContent.length - 1);
   displayScreen.textContent = newContent;
-}); // function to but comma after three digits
-
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-} // equal button
-
+}); // equal button
 
 equalButton.addEventListener("click", function () {
   // convert x to * and display the result
-  if (displayScreen.textContent.includes("x")) {
-    var converted = displayScreen.textContent.replaceAll("x", "*");
-    var result = eval(converted);
-    var convertToEnNum = numberWithCommas(result);
-    displayScreen.textContent = convertToEnNum;
-  } else {
-    var _result = eval(displayScreen.textContent);
-
-    var _convertToEnNum = numberWithCommas(_result);
-
-    displayScreen.textContent = _convertToEnNum;
-  }
+  var converted = displayScreen.textContent.replaceAll("x", "*");
+  var replaceComma = converted.replaceAll(",", "");
+  var result = eval(replaceComma);
+  var convertToEnNum = addCommas(result);
+  displayScreen.textContent = convertToEnNum;
 });
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
