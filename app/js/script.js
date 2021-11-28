@@ -151,7 +151,7 @@ violetTheme.addEventListener("click", () => {
   removeDarkTheme();
 });
 
-// ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------
+// ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------ \\
 
 const numberButtons = document.querySelectorAll(".number");
 const operationButtons = document.querySelectorAll(".operation");
@@ -182,10 +182,10 @@ numberButtons.forEach((button) => {
     // if the first number = . add 0 before it
     if (
       (displayScreen.textContent === "" && value === ".") ||
-      (displayScreen.textContent.slice(-1) === "-" && value === ".") ||
-      (displayScreen.textContent.slice(-1) === "+" && value === ".") ||
-      (displayScreen.textContent.slice(-1) === "/" && value === ".") ||
-      (displayScreen.textContent.slice(-1) === "x" && value === ".")
+      (displayScreen.textContent.slice(-2, -1) === "-" && value === ".") ||
+      (displayScreen.textContent.slice(-2, -1) === "+" && value === ".") ||
+      (displayScreen.textContent.slice(-2, -1) === "/" && value === ".") ||
+      (displayScreen.textContent.slice(-2, -1) === "x" && value === ".")
     ) {
       displayScreen.textContent += 0;
     }
@@ -239,7 +239,7 @@ operationButtons.forEach((button) => {
       displayScreen.textContent += convertToEnNum;
     }
 
-    // if display container error or Infinity delete it
+    // if display contain error or Infinity delete it
     if (
       displayScreen.textContent.includes("Infinity") ||
       displayScreen.textContent.includes("Error!")
@@ -289,4 +289,45 @@ equalButton.addEventListener("click", () => {
   const result = eval(replaceComma);
   const convertToEnNum = addCommas(result);
   displayScreen.textContent = convertToEnNum;
+});
+
+// make the keyboard keys work to do calc functionality
+document.addEventListener("keydown", (e) => {
+  if (e.key === "7") {
+    numberButtons[0].click();
+  } else if (e.key === "8") {
+    numberButtons[1].click();
+  } else if (e.key === "9") {
+    numberButtons[2].click();
+  } else if (e.key === "4") {
+    numberButtons[3].click();
+  } else if (e.key === "5") {
+    numberButtons[4].click();
+  } else if (e.key === "6") {
+    numberButtons[5].click();
+  } else if (e.key === "1") {
+    numberButtons[6].click();
+  } else if (e.key === "2") {
+    numberButtons[7].click();
+  } else if (e.key === "3") {
+    numberButtons[8].click();
+  } else if (e.key === ".") {
+    numberButtons[9].click();
+  } else if (e.key === "0") {
+    numberButtons[10].click();
+  } else if (e.key === "Backspace") {
+    deleteButton.click();
+  } else if (e.key === "Delete") {
+    clearButton.click();
+  } else if (e.key === "=") {
+    equalButton.click();
+  } else if (e.key === "+" && displayScreen.textContent != "") {
+    operationButtons[0].click();
+  } else if (e.key === "-" && displayScreen.textContent != "") {
+    operationButtons[1].click();
+  } else if (e.key === "/" && displayScreen.textContent != "") {
+    operationButtons[2].click();
+  } else if (e.key === "*" && displayScreen.textContent != "") {
+    operationButtons[3].click();
+  }
 });
