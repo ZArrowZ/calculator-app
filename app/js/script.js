@@ -247,6 +247,14 @@ deleteButton.addEventListener("click", () => {
     displayScreenContent.length - 1
   );
   displayScreen.textContent = newContent;
+
+  if (displayScreen.textContent.slice(-1) === ",") {
+    let newContent = displayScreenContent.substring(
+      0,
+      displayScreenContent.length - 2
+    );
+    displayScreen.textContent = newContent;
+  }
 });
 
 // equal button

@@ -318,6 +318,12 @@ deleteButton.addEventListener("click", function () {
   var displayScreenContent = displayScreen.textContent;
   var newContent = displayScreenContent.substring(0, displayScreenContent.length - 1);
   displayScreen.textContent = newContent;
+
+  if (displayScreen.textContent.slice(-1) === ",") {
+    var _newContent = displayScreenContent.substring(0, displayScreenContent.length - 2);
+
+    displayScreen.textContent = _newContent;
+  }
 }); // equal button
 
 equalButton.addEventListener("click", function () {
@@ -356,7 +362,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53670" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59021" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
