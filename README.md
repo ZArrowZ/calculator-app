@@ -5,7 +5,7 @@
 ## Technologies
 
 - HTML
-- SASS
+- SCSS
 - Javascript
 
 [Check out the live website](https://zarrowz.github.io/calculator-app/)
