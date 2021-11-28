@@ -194,6 +194,14 @@ numberButtons.forEach((button) => {
     if (displayScreen.textContent.slice(0) === "0" && value != ".") {
       displayScreen.textContent = "";
     }
+
+    // if display screen contain error massage or Infinity message delete it
+    if (
+      displayScreen.textContent.includes("Error!") ||
+      displayScreen.textContent.includes("Infinity")
+    ) {
+      displayScreen.textContent = "";
+    }
     displayScreen.textContent += value;
   });
 });
@@ -204,21 +212,17 @@ operationButtons.forEach((button) => {
     let value = e.target.textContent;
 
     if (
-      displayScreen.textContent.slice(-1) === "-" ||
-      displayScreen.textContent.slice(-1) === "+" ||
-      displayScreen.textContent.slice(-1) === "/" ||
-      displayScreen.textContent.slice(-1) === "x"
+      displayScreen.textContent.slice(-2, -1) === "-" ||
+      displayScreen.textContent.slice(-2, -1) === "+" ||
+      displayScreen.textContent.slice(-2, -1) === "/" ||
+      displayScreen.textContent.slice(-2, -1) === "x"
     ) {
-      let displayScreenContent = displayScreen.textContent;
-      let newContent = displayScreenContent.substring(
-        0,
-        displayScreenContent.length - 1
-      );
+      let newContent = displayScreen.textContent.slice(0, -3);
       displayScreen.textContent = newContent;
     }
 
     // no operation in the beginning
-    if (displayScreen.textContent.length === 0 && value != "-") return;
+    if (displayScreen.textContent.length === 0) return;
 
     // if there's previous operation
     if (
@@ -234,32 +238,52 @@ operationButtons.forEach((button) => {
       const convertToEnNum = addCommas(result);
       displayScreen.textContent += convertToEnNum;
     }
-    displayScreen.textContent += value;
+
+    // if display container error or Infinity delete it
+    if (
+      displayScreen.textContent.includes("Infinity") ||
+      displayScreen.textContent.includes("Error!")
+    ) {
+      displayScreen.textContent = "";
+      return;
+    }
+    displayScreen.textContent += " " + value + " ";
   });
 });
 
 // delete last number
 deleteButton.addEventListener("click", () => {
-  let displayScreenContent = displayScreen.textContent;
-
-  let newContent = displayScreenContent.substring(
-    0,
-    displayScreenContent.length - 1
-  );
+  let newContent = displayScreen.textContent.slice(0, -1);
   displayScreen.textContent = newContent;
 
   if (displayScreen.textContent.slice(-1) === ",") {
-    let newContent = displayScreenContent.substring(
-      0,
-      displayScreenContent.length - 2
-    );
+    let newContent = displayScreen.textContent.slice(0, -1);
     displayScreen.textContent = newContent;
+  }
+  if (displayScreen.textContent.slice(-2, -1) === " ") {
+    let newContent = displayScreen.textContent.slice(0, -2);
+    displayScreen.textContent = newContent;
+  }
+  if (
+    displayScreen.textContent.includes("Error") ||
+    displayScreen.textContent.includes("Infinit")
+  ) {
+    displayScreen.textContent = "";
   }
 });
 
 // equal button
 equalButton.addEventListener("click", () => {
-  // convert x to * and display the result
+  // display error to the user if the input is wrong
+  if (
+    displayScreen.textContent.slice(-2, -1) === "-" ||
+    displayScreen.textContent.slice(-2, -1) === "+" ||
+    displayScreen.textContent.slice(-2, -1) === "/" ||
+    displayScreen.textContent.slice(-2, -1) === "x"
+  ) {
+    displayScreen.textContent = "Error!";
+  }
+  // convert x to *
   const converted = displayScreen.textContent.replaceAll("x", "*");
   const replaceComma = converted.replaceAll(",", "");
   const result = eval(replaceComma);

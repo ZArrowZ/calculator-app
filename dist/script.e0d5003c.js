@@ -282,6 +282,11 @@ numberButtons.forEach(function (button) {
 
     if (displayScreen.textContent.slice(0) === "0" && value != ".") {
       displayScreen.textContent = "";
+    } // if display screen contain error massage or Infinity message delete it
+
+
+    if (displayScreen.textContent.includes("Error!") || displayScreen.textContent.includes("Infinity")) {
+      displayScreen.textContent = "";
     }
 
     displayScreen.textContent += value;
@@ -292,14 +297,13 @@ operationButtons.forEach(function (button) {
   button.addEventListener("click", function (e) {
     var value = e.target.textContent;
 
-    if (displayScreen.textContent.slice(-1) === "-" || displayScreen.textContent.slice(-1) === "+" || displayScreen.textContent.slice(-1) === "/" || displayScreen.textContent.slice(-1) === "x") {
-      var displayScreenContent = displayScreen.textContent;
-      var newContent = displayScreenContent.substring(0, displayScreenContent.length - 1);
+    if (displayScreen.textContent.slice(-2, -1) === "-" || displayScreen.textContent.slice(-2, -1) === "+" || displayScreen.textContent.slice(-2, -1) === "/" || displayScreen.textContent.slice(-2, -1) === "x") {
+      var newContent = displayScreen.textContent.slice(0, -3);
       displayScreen.textContent = newContent;
     } // no operation in the beginning
 
 
-    if (displayScreen.textContent.length === 0 && value != "-") return; // if there's previous operation
+    if (displayScreen.textContent.length === 0) return; // if there's previous operation
 
     if (displayScreen.textContent.includes("-") || displayScreen.textContent.includes("+") || displayScreen.textContent.includes("/") || displayScreen.textContent.includes("x")) {
       var converted = displayScreen.textContent.replaceAll("x", "*");
@@ -308,26 +312,46 @@ operationButtons.forEach(function (button) {
       displayScreen.textContent = "";
       var convertToEnNum = addCommas(result);
       displayScreen.textContent += convertToEnNum;
+    } // if display container error or Infinity delete it
+
+
+    if (displayScreen.textContent.includes("Infinity") || displayScreen.textContent.includes("Error!")) {
+      displayScreen.textContent = "";
+      return;
     }
 
-    displayScreen.textContent += value;
+    displayScreen.textContent += " " + value + " ";
   });
 }); // delete last number
 
 deleteButton.addEventListener("click", function () {
-  var displayScreenContent = displayScreen.textContent;
-  var newContent = displayScreenContent.substring(0, displayScreenContent.length - 1);
+  var newContent = displayScreen.textContent.slice(0, -1);
   displayScreen.textContent = newContent;
 
   if (displayScreen.textContent.slice(-1) === ",") {
-    var _newContent = displayScreenContent.substring(0, displayScreenContent.length - 2);
+    var _newContent = displayScreen.textContent.slice(0, -1);
 
     displayScreen.textContent = _newContent;
+  }
+
+  if (displayScreen.textContent.slice(-2, -1) === " ") {
+    var _newContent2 = displayScreen.textContent.slice(0, -2);
+
+    displayScreen.textContent = _newContent2;
+  }
+
+  if (displayScreen.textContent.includes("Error") || displayScreen.textContent.includes("Infinit")) {
+    displayScreen.textContent = "";
   }
 }); // equal button
 
 equalButton.addEventListener("click", function () {
-  // convert x to * and display the result
+  // display error to the user if the input is wrong
+  if (displayScreen.textContent.slice(-2, -1) === "-" || displayScreen.textContent.slice(-2, -1) === "+" || displayScreen.textContent.slice(-2, -1) === "/" || displayScreen.textContent.slice(-2, -1) === "x") {
+    displayScreen.textContent = "Error!";
+  } // convert x to *
+
+
   var converted = displayScreen.textContent.replaceAll("x", "*");
   var replaceComma = converted.replaceAll(",", "");
   var result = eval(replaceComma);
@@ -362,7 +386,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59021" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60457" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
