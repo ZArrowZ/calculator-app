@@ -28,6 +28,10 @@
   padding: rem(20);
   text-align: right;
 
+  @include breakpointsDown(small) {
+    width: rem(290);
+    max-width: rem(290);
+  }
   @include breakpoints(medium) {
     width: rem(540);
     max-width: rem(540);
@@ -49,6 +53,13 @@
   grid-template-columns: repeat(4, rem(60));
   gap: rem(13);
   font-size: rem(32);
+
+  @include breakpointsDown(small) {
+    width: rem(290);
+    max-width: rem(290);
+    grid-template-columns: repeat(4, rem(50));
+    height: rem(380);
+  }
 
   @include breakpoints(medium) {
     width: rem(540);
@@ -72,6 +83,11 @@ button {
   height: rem(60);
   z-index: 100;
   box-shadow: 0 rem(4) 0 var(--grayish-orange-shadow);
+
+  @include breakpointsDown(small) {
+    height: rem(50);
+    font-size: rem(28);
+  }
 
   @media (prefers-color-scheme: light) {
     background-color: var(--light-grayish-yellow);
