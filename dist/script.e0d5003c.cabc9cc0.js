@@ -375,7 +375,7 @@ parcelRequire = function (modules, cache, entry, globalName) {
       removeLightTheme(); // remove all dark theme classes
 
       removeDarkTheme();
-    }); // ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------
+    }); // ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------ \\
 
     var numberButtons = document.querySelectorAll(".number");
     var operationButtons = document.querySelectorAll(".operation");
@@ -396,7 +396,7 @@ parcelRequire = function (modules, cache, entry, globalName) {
         var value = e.target.textContent;
         if (displayScreen.textContent.slice(-1) === "." && value === "." || displayScreen.textContent.slice(0) === "0" && value === "0") return; // if the first number = . add 0 before it
 
-        if (displayScreen.textContent === "" && value === "." || displayScreen.textContent.slice(-1) === "-" && value === "." || displayScreen.textContent.slice(-1) === "+" && value === "." || displayScreen.textContent.slice(-1) === "/" && value === "." || displayScreen.textContent.slice(-1) === "x" && value === ".") {
+        if (displayScreen.textContent === "" && value === "." || displayScreen.textContent.slice(-2, -1) === "-" && value === "." || displayScreen.textContent.slice(-2, -1) === "+" && value === "." || displayScreen.textContent.slice(-2, -1) === "/" && value === "." || displayScreen.textContent.slice(-2, -1) === "x" && value === ".") {
           displayScreen.textContent += 0;
         } // if the first number equal 0 replace it with next number
 
@@ -433,7 +433,7 @@ parcelRequire = function (modules, cache, entry, globalName) {
           displayScreen.textContent = "";
           var convertToEnNum = addCommas(result);
           displayScreen.textContent += convertToEnNum;
-        } // if display container error or Infinity delete it
+        } // if display contain error or Infinity delete it
 
 
         if (displayScreen.textContent.includes("Infinity") || displayScreen.textContent.includes("Error!")) {
@@ -478,6 +478,46 @@ parcelRequire = function (modules, cache, entry, globalName) {
       var result = eval(replaceComma);
       var convertToEnNum = addCommas(result);
       displayScreen.textContent = convertToEnNum;
+    }); // make the keyboard keys work to do calc functionality
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "7") {
+        numberButtons[0].click();
+      } else if (e.key === "8") {
+        numberButtons[1].click();
+      } else if (e.key === "9") {
+        numberButtons[2].click();
+      } else if (e.key === "4") {
+        numberButtons[3].click();
+      } else if (e.key === "5") {
+        numberButtons[4].click();
+      } else if (e.key === "6") {
+        numberButtons[5].click();
+      } else if (e.key === "1") {
+        numberButtons[6].click();
+      } else if (e.key === "2") {
+        numberButtons[7].click();
+      } else if (e.key === "3") {
+        numberButtons[8].click();
+      } else if (e.key === ".") {
+        numberButtons[9].click();
+      } else if (e.key === "0") {
+        numberButtons[10].click();
+      } else if (e.key === "Backspace") {
+        deleteButton.click();
+      } else if (e.key === "Delete") {
+        clearButton.click();
+      } else if (e.key === "=") {
+        equalButton.click();
+      } else if (e.key === "+" && displayScreen.textContent != "") {
+        operationButtons[0].click();
+      } else if (e.key === "-" && displayScreen.textContent != "") {
+        operationButtons[1].click();
+      } else if (e.key === "/" && displayScreen.textContent != "") {
+        operationButtons[2].click();
+      } else if (e.key === "*" && displayScreen.textContent != "") {
+        operationButtons[3].click();
+      }
     });
   }, {}],
   "node_modules/parcel-bundler/src/builtins/hmr-runtime.js": [function (require, module, exports) {
@@ -508,7 +548,7 @@ parcelRequire = function (modules, cache, entry, globalName) {
     if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
       var hostname = "" || location.hostname;
       var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-      var ws = new WebSocket(protocol + '://' + hostname + ':' + "56685" + '/');
+      var ws = new WebSocket(protocol + '://' + hostname + ':' + "52347" + '/');
 
       ws.onmessage = function (event) {
         checkedAssets = {};
@@ -714,7 +754,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56685" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52347" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
