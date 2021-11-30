@@ -121,100 +121,65 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var darkTheme = document.getElementById("dark");
 var lightTheme = document.getElementById("light");
 var violetTheme = document.getElementById("violet");
-var toggleButton = document.querySelector(".toggle__button"); // get the prefer theme for the user
-
-var userPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-var userPrefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; // but the default theme
-
-if (userPrefersDark) {
-  darkTheme.checked = true;
-  toggleButton.style.right = "50px";
-}
-
-if (userPrefersLight) {
-  lightTheme.checked = true;
-  toggleButton.style.right = "28px";
-} // move the toggle button and change the colors
-
-
+var toggleButton = document.querySelector(".toggle__button");
 var body = document.body;
 var buttons = document.querySelectorAll("button");
 var toggle = document.querySelector(".toggle__background");
 var diffButtons = document.querySelectorAll(".diff-color");
 var displayScreen = document.querySelector(".display");
 var equalButton = document.querySelector(".equals");
-var buttonsContainer = document.querySelector(".grid__container"); // function we call it when to remove dark theme
+var buttonsContainer = document.querySelector(".grid__container");
+var darkMode = localStorage.getItem("darkMode");
+var lightMode = localStorage.getItem("lightMode");
+var violetMode = localStorage.getItem("violetMode");
 
-function removeDarkTheme() {
-  body.classList.remove("dark");
-  toggle.classList.remove("dark__toggle__background");
-  toggleButton.classList.remove("dark__toggle__button");
-  buttons.forEach(function (button) {
-    button.classList.remove("dark__button");
-  });
-  diffButtons.forEach(function (diffButton) {
-    diffButton.classList.remove("dark__diff");
-  });
-  equalButton.classList.remove("dark__equal");
-  displayScreen.classList.remove("dark__display");
-  buttonsContainer.classList.remove("dark__grid__container");
-} // function we call it when to remove violet theme
+function enableDarkMode() {
+  localStorage.setItem("darkMode", "enabled");
+}
 
+function disableDarkMode() {
+  localStorage.setItem("darkMode", null);
+}
 
-function removeVioletTheme() {
-  body.classList.remove("violet");
-  toggle.classList.remove("violet__toggle__background");
-  toggleButton.classList.remove("violet__toggle__button");
-  buttons.forEach(function (button) {
-    button.classList.remove("violet__button");
-  });
-  diffButtons.forEach(function (diffButton) {
-    diffButton.classList.remove("violet__diff");
-  });
-  equalButton.classList.remove("violet__equal");
-  displayScreen.classList.remove("violet__display");
-  buttonsContainer.classList.remove("violet__grid__container");
-} // function we call it when to remove light theme
+function enableLightMode() {
+  localStorage.setItem("lightMode", "enabled");
+}
+
+function disableLightMode() {
+  localStorage.setItem("lightMode", null);
+}
+
+function enableVioletMode() {
+  localStorage.setItem("violetMode", "enabled");
+}
+
+function disableVioletMode() {
+  localStorage.setItem("violetMode", null);
+} // get the prefer theme for the user
 
 
-function removeLightTheme() {
-  body.classList.remove("light");
-  toggle.classList.remove("light__toggle__background");
-  toggleButton.classList.remove("light__toggle__button");
-  buttons.forEach(function (button) {
-    button.classList.remove("light__button");
-  });
-  diffButtons.forEach(function (diffButton) {
-    diffButton.classList.remove("light__diff");
-  });
-  equalButton.classList.remove("light__equal");
-  displayScreen.classList.remove("light__display");
-  buttonsContainer.classList.remove("light__grid__container");
-} // light theme
+var userPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+var userPrefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; // put the default theme
+
+if (userPrefersDark) {
+  darkTheme.checked = true;
+}
+
+if (userPrefersLight) {
+  lightTheme.checked = true;
+  toggleButton.style.right = "28px";
+}
+
+if (darkMode === "enabled") {
+  addDarkTheme();
+} else if (lightMode === "enabled") {
+  addLightTheme();
+} else if (violetMode === "enabled") {
+  addVioletTheme();
+} // function to add the dark theme
 
 
-lightTheme.addEventListener("click", function () {
-  toggleButton.style.right = "28px"; // add light classes to change the colors
-
-  body.classList.add("light");
-  toggle.classList.add("light__toggle__background");
-  toggleButton.classList.add("light__toggle__button");
-  buttons.forEach(function (button) {
-    button.classList.add("light__button");
-  });
-  diffButtons.forEach(function (diffButton) {
-    diffButton.classList.add("light__diff");
-  });
-  equalButton.classList.add("light__equal");
-  displayScreen.classList.add("light__display");
-  buttonsContainer.classList.add("light__grid__container"); // remove all violet theme classes
-
-  removeVioletTheme(); // remove all dark theme classes
-
-  removeDarkTheme();
-}); // dark theme
-
-darkTheme.addEventListener("click", function () {
+function addDarkTheme() {
   toggleButton.style.right = "50px"; // add light classes to change the colors
 
   body.classList.add("dark");
@@ -233,9 +198,26 @@ darkTheme.addEventListener("click", function () {
   removeLightTheme(); // remove all violet theme classes
 
   removeVioletTheme();
-}); // violet theme
+} // function we call it to remove dark theme
 
-violetTheme.addEventListener("click", function () {
+
+function removeDarkTheme() {
+  body.classList.remove("dark");
+  toggle.classList.remove("dark__toggle__background");
+  toggleButton.classList.remove("dark__toggle__button");
+  buttons.forEach(function (button) {
+    button.classList.remove("dark__button");
+  });
+  diffButtons.forEach(function (diffButton) {
+    diffButton.classList.remove("dark__diff");
+  });
+  equalButton.classList.remove("dark__equal");
+  displayScreen.classList.remove("dark__display");
+  buttonsContainer.classList.remove("dark__grid__container");
+} // function to add the violet theme
+
+
+function addVioletTheme() {
   toggleButton.style.right = "5px"; // add violet classes to change the colors
 
   body.classList.add("violet");
@@ -254,6 +236,97 @@ violetTheme.addEventListener("click", function () {
   removeLightTheme(); // remove all dark theme classes
 
   removeDarkTheme();
+} // function we call it to remove violet theme
+
+
+function removeVioletTheme() {
+  body.classList.remove("violet");
+  toggle.classList.remove("violet__toggle__background");
+  toggleButton.classList.remove("violet__toggle__button");
+  buttons.forEach(function (button) {
+    button.classList.remove("violet__button");
+  });
+  diffButtons.forEach(function (diffButton) {
+    diffButton.classList.remove("violet__diff");
+  });
+  equalButton.classList.remove("violet__equal");
+  displayScreen.classList.remove("violet__display");
+  buttonsContainer.classList.remove("violet__grid__container");
+} // function to add the light theme
+
+
+function addLightTheme() {
+  toggleButton.style.right = "28px"; // add light classes to change the colors
+
+  body.classList.add("light");
+  toggle.classList.add("light__toggle__background");
+  toggleButton.classList.add("light__toggle__button");
+  buttons.forEach(function (button) {
+    button.classList.add("light__button");
+  });
+  diffButtons.forEach(function (diffButton) {
+    diffButton.classList.add("light__diff");
+  });
+  equalButton.classList.add("light__equal");
+  displayScreen.classList.add("light__display");
+  buttonsContainer.classList.add("light__grid__container"); // remove all violet theme classes
+
+  removeVioletTheme(); // remove all dark theme classes
+
+  removeDarkTheme();
+} // function we call it to remove light theme
+
+
+function removeLightTheme() {
+  body.classList.remove("light");
+  toggle.classList.remove("light__toggle__background");
+  toggleButton.classList.remove("light__toggle__button");
+  buttons.forEach(function (button) {
+    button.classList.remove("light__button");
+  });
+  diffButtons.forEach(function (diffButton) {
+    diffButton.classList.remove("light__diff");
+  });
+  equalButton.classList.remove("light__equal");
+  displayScreen.classList.remove("light__display");
+  buttonsContainer.classList.remove("light__grid__container");
+} // dark theme
+
+
+darkTheme.addEventListener("click", function () {
+  // save in local storage
+  darkMode = localStorage.getItem("darkMode");
+  lightMode = localStorage.getItem("lightMode");
+  violetMode = localStorage.getItem("violetMode");
+  enableDarkMode();
+  disableLightMode();
+  disableVioletMode(); // call the function to add the dark theme
+
+  addDarkTheme();
+}); // light theme
+
+lightTheme.addEventListener("click", function () {
+  // save in local storage
+  darkMode = localStorage.getItem("darkMode");
+  lightMode = localStorage.getItem("lightMode");
+  violetMode = localStorage.getItem("violetMode");
+  enableLightMode();
+  disableDarkMode();
+  disableVioletMode(); // call the function to add light theme
+
+  addLightTheme();
+}); // violet theme
+
+violetTheme.addEventListener("click", function () {
+  // save in local storage
+  darkMode = localStorage.getItem("darkMode");
+  lightMode = localStorage.getItem("lightMode");
+  violetMode = localStorage.getItem("violetMode");
+  enableVioletMode();
+  disableDarkMode();
+  disableLightMode(); // call the function to add violet theme
+
+  addVioletTheme();
 }); // ------------------------------------------------------------------ Add functionally to the calculator ------------------------------------------------------------------ \\
 
 var numberButtons = document.querySelectorAll(".number");
@@ -426,7 +499,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60679" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51472" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
