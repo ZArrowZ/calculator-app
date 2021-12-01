@@ -15,4 +15,5 @@
 .DS_Store
 .prettierignore
 
-../node-modules
+node_modules/
+design/
